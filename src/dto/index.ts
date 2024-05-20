@@ -6,4 +6,10 @@ const dtoCard = z.object({
   translation: z.string(),
 });
 
-export { dtoCard };
+const dtoDeck = z.object({
+  id: z.number(),
+  name: z.string(),
+  cards: z.array(dtoCard),
+});
+
+export { dtoCard, dtoDeck };

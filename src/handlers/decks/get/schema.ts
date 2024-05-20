@@ -1,8 +1,8 @@
 import z from "zod";
 
-import { dtoCard } from "../../../dto";
+import { dtoDeck } from "../../../dto";
 
-const params = dtoCard
+const params = dtoDeck
   .pick({ id: true })
   .extend({ id: z.string().trim().min(1) });
 

@@ -8,6 +8,11 @@ import type {
   CardCreatePayload,
   CardDeletePayload,
   CardUpdatePayload,
+  DeckRecord,
+  DeckGetPayload,
+  DeckCreatePayload,
+  DeckDeletePayload,
+  DeckUpdatePayload,
 } from "./types";
 
 const { Client, Pool } = pg;
@@ -73,6 +78,50 @@ class Repository {
   public async deleteCard(payload: CardDeletePayload): Promise<void> {
     try {
       await this.pool.query("DELETE FROM cards WHERE id=$1;", [payload.id]);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async getDeck(payload: DeckGetPayload): Promise<DeckRecord> {
+    try {
+      const {
+        rows: [record],
+      } = await this.pool.query<DeckRecord>(
+        "SELECT id, name, cards FROM decks WHERE id = $1;",
+        [payload.id]
+      );
+
+      return record;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async createDeck(payload: DeckCreatePayload): Promise<void> {
+    try {
+      await this.pool.query("INSERT INTO decks (name) VALUES ($1);", [
+        payload.name,
+      ]);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async deleteDeck(payload: DeckDeletePayload): Promise<void> {
+    try {
+      await this.pool.query("DELETE FROM decks WHERE id = $1;", [payload.id]);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async updateDeck(payload: DeckUpdatePayload): Promise<void> {
+    try {
+      await this.pool.query(
+        "UPDATE decks SET name=COALESCE($1, name), cards=COALESCE($2, cards) WHERE id=$3",
+        [payload.name, payload.cards, payload.id]
+      );
     } catch (error) {
       throw error;
     }

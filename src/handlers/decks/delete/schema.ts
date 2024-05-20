@@ -1,6 +1,6 @@
 import { dtoDeck } from "../../../dto";
 
-const body = dtoDeck.pick({ name: true });
+const body = dtoDeck.pick({ id: true });
 
 const schema = {
   body,

@@ -1,14 +1,17 @@
 import type { DeckService } from "../../../services/decks";
-import type { HandlerRequest, HandlerReply } from "./types";
 
-const route = "/decks/create";
+import type { HandlerReply, HandlerRequest } from "./types";
+
+const route = "/decks/delete";
 
 function handler(service: DeckService) {
   return async function (request: HandlerRequest, reply: HandlerReply) {
     try {
-      await service.createDeck(request.body);
+      await service.deleteDeck(request.body);
 
-      reply.code(200).send({ message: "Deck has been created" });
+      reply
+        .code(200)
+        .send({ message: `Deck ${request.body.id} has been deleted` });
     } catch (error) {
       throw error;
     }

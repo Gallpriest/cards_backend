@@ -22,7 +22,7 @@ type ServerHandlers = {
   route: string;
   schema: Record<string, any>;
   handler: (
-    service?: any
+    ...services: any[]
   ) => (request: FastifyRequest<any>, reply: FastifyReply) => Promise<void>;
 };
 
