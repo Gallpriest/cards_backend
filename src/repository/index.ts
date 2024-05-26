@@ -100,9 +100,10 @@ class Repository {
 
   public async createDeck(payload: DeckCreatePayload): Promise<void> {
     try {
-      await this.pool.query("INSERT INTO decks (name) VALUES ($1);", [
-        payload.name,
-      ]);
+      await this.pool.query(
+        "INSERT INTO decks (name, cards) VALUES ($1, $2);",
+        [payload.name, []]
+      );
     } catch (error) {
       throw error;
     }

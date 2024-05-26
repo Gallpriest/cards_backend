@@ -14,8 +14,6 @@ async function bootstrap() {
   const { appHost: host, appPort: port } = loadDevVariables();
   const server = Fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
 
-  type a = typeof server;
-
   server
     .setValidatorCompiler(validatorCompiler)
     .setSerializerCompiler(serializerCompiler);
