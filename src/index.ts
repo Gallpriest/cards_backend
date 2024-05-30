@@ -3,6 +3,7 @@ import {
   validatorCompiler,
   serializerCompiler,
 } from "fastify-type-provider-zod";
+import cors from "@fastify/cors";
 
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 
@@ -15,6 +16,7 @@ async function bootstrap() {
   const server = Fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
 
   server
+    .register(cors)
     .setValidatorCompiler(validatorCompiler)
     .setSerializerCompiler(serializerCompiler);
 

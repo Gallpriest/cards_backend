@@ -8,6 +8,10 @@ class DeckService {
     this.repository = repository;
   }
 
+  public async allDecks() {
+    return await this.repository.allDecks();
+  }
+
   public async getDeck(payload: Payload<Repository["getDeck"]>) {
     return await this.repository.getDeck(payload);
   }

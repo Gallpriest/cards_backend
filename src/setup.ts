@@ -11,11 +11,11 @@ function setup(server: AppServer, repository: Repository) {
   const deckService = new DeckService(repository);
 
   cardHandlers.forEach(({ method, route, schema, handler }) => {
-    server[method](route, { schema }, handler(cardService));
+    server[method](route, schema ? { schema } : {}, handler(cardService));
   });
 
   deckHandlers.forEach(({ method, route, schema, handler }) => {
-    server[method](route, { schema }, handler(deckService));
+    server[method](route, schema ? { schema } : {}, handler(deckService));
   });
 }
 

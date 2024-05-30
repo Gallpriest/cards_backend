@@ -38,6 +38,19 @@ class Repository {
     return { host, user, port, password, database };
   }
 
+  public async allCards(): Promise<Array<CardRecord>> {
+    try {
+      const { rows } = await this.pool.query<CardRecord>(
+        "SELECT * FROM cards;",
+        []
+      );
+
+      return rows;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   public async getCard(payload: CardGetPayload): Promise<CardRecord> {
     try {
       const {
@@ -78,6 +91,19 @@ class Repository {
   public async deleteCard(payload: CardDeletePayload): Promise<void> {
     try {
       await this.pool.query("DELETE FROM cards WHERE id=$1;", [payload.id]);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async allDecks(): Promise<Array<DeckRecord>> {
+    try {
+      const { rows } = await this.pool.query<DeckRecord>(
+        "SELECT * FROM decks;",
+        []
+      );
+
+      return rows;
     } catch (error) {
       throw error;
     }

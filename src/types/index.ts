@@ -20,10 +20,10 @@ type AppServer = FastifyInstance<
 type ServerHandlers = {
   method: typeof GET | typeof POST | typeof DELETE | typeof PUT;
   route: string;
-  schema: Record<string, any>;
   handler: (
     ...services: any[]
   ) => (request: FastifyRequest<any>, reply: FastifyReply) => Promise<void>;
+  schema?: Record<string, any>;
 };
 
 type Payload<T extends (...args: any) => any> = Parameters<T>[0];

@@ -8,6 +8,10 @@ class CardService {
     this.repository = repository;
   }
 
+  public async allCards() {
+    return await this.repository.allCards();
+  }
+
   public async getCard(payload: Payload<Repository["getCard"]>) {
     return await this.repository.getCard(payload);
   }
